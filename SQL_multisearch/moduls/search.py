@@ -11,11 +11,28 @@
 
 from .log import *
 
-def build_where(table: str, field: dict, request: dict):
+def build_where(table: str, field: dict, request: dict, type_db:str):
     where = "select * from " + str(table) + " where " + str(field["field"])
 
-    if request["operande"] == "like":
-        where = where + " like '%" + str(request["value"]) + "%'"
+    if "like" in request["operande"] or (type_db == "sqlite" and "ilike" in request["operande"]):
+        if request["operande"] == "like":
+            where = where + " like '%" + str(request["value"]) + "%'"
+        elif "left" in request["operande"]:
+            where = where + " like '%" + str(request["value"]) + "'"
+        elif "right" in request["operande"]:
+            where = where + " like '" + str(request["value"]) + "%'"
+        else:
+            where = where + " like '%" + str(request["value"]) + "%'"
+
+    if type_db != "sqlite" and "ilike" in request["operande"]:
+        if request["operande"] == "ilike":
+            where = where + " ilike '%" + str(request["value"]) + "%'"
+        elif "left" in request["operande"]:
+            where = where + " ilike '%" + str(request["value"]) + "'"
+        elif "right" in request["operande"]:
+            where = where + " ilike '" + str(request["value"]) + "%'"
+        else:
+            where = where + " ilike '%" + str(request["value"]) + "%'"
 
     if request["operande"] == "=":
         if request["value_type"] == "int":
@@ -31,7 +48,7 @@ def tuple_to_json(result_tuple: tuple, fields: list, priority: int, searchable_f
     i = 0
     liste_searchable_fields = [field["field"] for field in searchable_fields]
     priority = priority
-    
+
     for value in result_tuple:
 
         if "schema" in request:
@@ -71,7 +88,7 @@ class Search:
         print_log("RUNNING", 200, "Research execution")
         for field in self.searchable_fields:
             results = self.db.execute(
-                build_where(self.table, field, self.request)
+                build_where(self.table, field, self.request, self.type_db)
             ).fetchall()
             for result in results:
                 self.return_objects.append(

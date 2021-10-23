@@ -74,12 +74,12 @@ class SQL_multisearch:
         ).get_columns_name()
     
     def _stats(self):
-        stats = {"rank":{}}
+        stats = {"ranks":{}}
         for r in self._results():
-            if str(r["ranking"]) in stats["rank"].keys():
-                stats["rank"][str(r["ranking"])] = int(stats["rank"][str(r["ranking"])])+1
+            if str(r["ranking"]) in stats["ranks"].keys():
+                stats["ranks"][str(r["ranking"])] = int(stats["ranks"][str(r["ranking"])])+1
             else:
-                stats["rank"][str(r["ranking"])] = 1
+                stats["ranks"][str(r["ranking"])] = 1
             
             if "total" in stats:
                 stats["total"] = int(stats["total"])+1

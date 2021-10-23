@@ -15,7 +15,7 @@ from .log import *
 class Connect():
     def __init__(self, connexion_infos):
         self.connexion_infos = connexion_infos
-        print_log("RUNNING", 200,  self.connexion_infos["db_system"] + " connexion initating on " + self.connexion_infos["db_url"])
+        print_log("RUNNING", 200,  self.connexion_infos["db_system"] + " connexion initiating on " + self.connexion_infos["db_url"])
 
     # créer une fonction par type de db (mysql, sqlite, postgre, maria, etc)
     def sqlite(self):
