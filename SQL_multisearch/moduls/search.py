@@ -31,8 +31,15 @@ def tuple_to_json(result_tuple: tuple, fields: list, priority: int, searchable_f
     i = 0
     liste_searchable_fields = [field["field"] for field in searchable_fields]
     priority = priority
+    
     for value in result_tuple:
-        out["values"][fields[i]] = value
+
+        if "schema" in request:
+            if fields[i] in request["schema"]:
+                out["values"][fields[i]] = value
+        else:
+            out["values"][fields[i]] = value
+        
         if fields[i] in liste_searchable_fields:
             if value:
                 if request["value"] in value:
@@ -61,7 +68,7 @@ class Search:
         self.type_db = connexion_infos["db_system"]
 
     def search(self):
-        print_log("RUNNING", 200, "Resaearch execution")
+        print_log("RUNNING", 200, "Research execution")
         for field in self.searchable_fields:
             results = self.db.execute(
                 build_where(self.table, field, self.request)
