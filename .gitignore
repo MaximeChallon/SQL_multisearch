@@ -8,7 +8,7 @@ env
 .idea/
 .env
 .vscode/
-test*
+test.*
 
 # C extensions
 *.so
