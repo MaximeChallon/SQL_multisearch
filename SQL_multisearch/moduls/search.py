@@ -14,7 +14,7 @@ from .log import *
 def build_where(table: str, field: dict, request: dict, type_db:str):
     where = "select * from " + str(table) + " where " + str(field["field"])
 
-    if "like" in request["operande"] or (type_db == "sqlite" and "ilike" in request["operande"]):
+    if "like" in request["operande"] or (type_db in ["sqlite"] and "ilike" in request["operande"]):
         if request["operande"] == "like":
             where = where + " like '%" + str(request["value"]) + "%'"
         elif "left" in request["operande"]:
@@ -24,7 +24,7 @@ def build_where(table: str, field: dict, request: dict, type_db:str):
         else:
             where = where + " like '%" + str(request["value"]) + "%'"
 
-    if type_db != "sqlite" and "ilike" in request["operande"]:
+    if type_db not in  ["sqlite"] and "ilike" in request["operande"]:
         if request["operande"] == "ilike":
             where = where + " ilike '%" + str(request["value"]) + "%'"
         elif "left" in request["operande"]:
