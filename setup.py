@@ -11,24 +11,24 @@ import SQL_multisearch
 try:
     LONG_DESCRIPTION = open('README.md').read()
 except:
-    LONG_DESCRIPTION = u"Moteur de recherche dans de multiples champs d'une table SQL"
+    LONG_DESCRIPTION = u"SQL search and ranking engine in multiple fields of database table"
 
 CLASSIFIERS=[
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
-    "Natural Language :: French",
+    "Natural Language :: English",
     "Programming Language :: Python :: 3.7",
     "Topic :: Education"
 ]
 
 setup(name="SQL_multisearch",
       version=SQL_multisearch.__version__,
-      description="Moteur de recherche dans de multiples champs d'une table SQL",
+      description="SQL search and ranking engine in multiple fields of database table",
       long_description=LONG_DESCRIPTION,
       long_description_content_type="text/markdown",
       author="Maxime Challon",
       author_email="maxime.challon@gmail.com",
-      keywords="SQL search ranking",
+      keywords="SQL search ranking sqlite",
       classifiers=CLASSIFIERS,
       packages=["SQL_multisearch"],
       test_suite='nose.collector',
