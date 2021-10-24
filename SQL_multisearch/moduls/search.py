@@ -71,7 +71,7 @@ def tuple_to_json(result_tuple: tuple, fields: list, priority: int, searchable_f
         
         if fields[i] in liste_searchable_fields:
             if value:
-                if str(request["value"]) in str(value):
+                if str(request["value"]).upper() in str(value).upper():
                     priority += len(str(request["value"]))/len(str(value))
         i += 1
     out["ranking"] = priority
@@ -106,9 +106,12 @@ class Search:
                 self.return_objects.append(
                     tuple_to_json(result, self.fields_names, int(field["priority"]), self.searchable_fields, self.request)
                 )
-        
+        print((False if self.request["order"] == "asc" else True))
         if "limit" in self.request:
-            self.return_objects = sorted(self.return_objects, key=lambda d:d["ranking"], reverse=True)[(self.request["offset"] if "offset" in self.request else 0):(self.request["offset"] + self.request["limit"] if "offset" in self.request else self.request["limit"])]
+            self.return_objects = sorted(self.return_objects, key=lambda d:d["ranking"],reverse=((False if self.request["order"] == "asc" else True)  if "order" in self.request else True))[(self.request["offset"] if "offset" in self.request else 0):(self.request["offset"] + self.request["limit"] if "offset" in self.request else self.request["limit"])]
+        else:
+            self.return_objects = sorted(self.return_objects, key=lambda d:d["ranking"],reverse=((False if self.request["order"] == "asc" else True)  if "order" in self.request else True))
+
         print_log("OK", 200, "Research succeeded: "+ str(len(self.return_objects)) + " objects returned")
         return self.return_objects
     
