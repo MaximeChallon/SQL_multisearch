@@ -39,6 +39,18 @@ def build_where(table: str, field: dict, request: dict, type_db:str):
             where = where + " == " + str(request["value"]) + ""
         if request["value_type"] == "str":
             where = where + " == '" + str(request["value"]) + "'"
+    
+    if ">" in request["operande"] or ">" in request["operande"]:
+        if "=" in request["operande"]:
+            if request["value_type"] == "int":
+                where = where + " "+request["operande"]+" " + str(request["value"]) + ""
+            if request["value_type"] == "str":
+                where = where + " "+request["operande"]+ "'" + str(request["value"]) + "'"
+        else:
+            if request["value_type"] == "int":
+                where = where + " "+request["operande"]+ "" + str(request["value"]) + ""
+            if request["value_type"] == "str":
+                where = where + " "+request["operande"]+ "'" + str(request["value"]) + "'"
 
     return where
 
@@ -59,8 +71,8 @@ def tuple_to_json(result_tuple: tuple, fields: list, priority: int, searchable_f
         
         if fields[i] in liste_searchable_fields:
             if value:
-                if request["value"] in value:
-                    priority += len(request["value"])/len(value)
+                if str(request["value"]) in str(value):
+                    priority += len(str(request["value"]))/len(str(value))
         i += 1
     out["ranking"] = priority
     return out
