@@ -106,7 +106,7 @@ class Search:
                 self.return_objects.append(
                     tuple_to_json(result, self.fields_names, int(field["priority"]), self.searchable_fields, self.request)
                 )
-        print((False if self.request["order"] == "asc" else True))
+        
         if "limit" in self.request:
             self.return_objects = sorted(self.return_objects, key=lambda d:d["ranking"],reverse=((False if self.request["order"] == "asc" else True)  if "order" in self.request else True))[(self.request["offset"] if "offset" in self.request else 0):(self.request["offset"] + self.request["limit"] if "offset" in self.request else self.request["limit"])]
         else:

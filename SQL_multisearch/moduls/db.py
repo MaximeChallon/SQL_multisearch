@@ -19,6 +19,6 @@ class Connect():
 
     # créer une fonction par type de db (mysql, sqlite, postgre, maria, etc)
     def sqlite(self):
-        engine = create_engine(self.connexion_infos["db_system"] + ':///' + self.connexion_infos["db_url"], echo = True)
+        engine = create_engine(self.connexion_infos["db_system"] + ':///' + self.connexion_infos["db_url"], echo = False)
         print_log("OK", 200,  self.connexion_infos["db_system"] + " connexion open")
         return engine
