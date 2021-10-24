@@ -3,7 +3,7 @@
 ![Python package](https://github.com/MaximeChallon/SQL_multisearch/workflows/Python%20package/badge.svg?branch=master)
 ![PyPI](https://img.shields.io/pypi/v/SQL_multisearch)
 ![PyPI - Format](https://img.shields.io/pypi/format/SQL_multisearch?label=PyPi%20format)
-![GitHub Release Date](https://img.shields.io/github/release-date/SQL_multisearch/AdresseParser)
+![GitHub Release Date](https://img.shields.io/github/release-date/MaximeChallon/SQL_multisearch/
 
 
 # SQL_mutlisearch
