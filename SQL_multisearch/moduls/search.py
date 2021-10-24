@@ -108,7 +108,7 @@ class Search:
                 )
         
         if "limit" in self.request:
-            self.return_objects = sorted(self.return_objects, key=lambda d:d["ranking"], reverse=True)[:self.request["limit"]]
+            self.return_objects = sorted(self.return_objects, key=lambda d:d["ranking"], reverse=True)[(self.request["offset"] if "offset" in self.request else 0):(self.request["offset"] + self.request["limit"] if "offset" in self.request else self.request["limit"])]
         print_log("OK", 200, "Research succeeded: "+ str(len(self.return_objects)) + " objects returned")
         return self.return_objects
     
