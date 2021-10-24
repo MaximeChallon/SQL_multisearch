@@ -31,5 +31,6 @@ setup(name="SQL_multisearch",
       keywords="SQL search ranking sqlite",
       classifiers=CLASSIFIERS,
       packages=["SQL_multisearch"],
+      install_requires=['sqlalchemy'],
       test_suite='nose.collector',
       tests_require=['nose'])
